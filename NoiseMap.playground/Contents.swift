@@ -65,6 +65,9 @@ class GameScene: SKScene {
         
         // Do we want spawn enemies using noise?
         
+        let source = GKPerlinNoiseSource()
+        source.persistence = 0.7
+        
 //        let source = GKBillowNoiseSource(frequency: 2.0,
 //                                         octaveCount: 6,
 //                                         persistence: 0.5,
@@ -75,11 +78,11 @@ class GameScene: SKScene {
         /// WATER LAND SOURCES
         ///
         
-        let source = GKPerlinNoiseSource(frequency: 0.2,
-                                     octaveCount: 6,
-                                     persistence: 0.5,
-                                     lacunarity: 2.0,
-                                     seed: Int32(50))
+//        let source = GKPerlinNoiseSource(frequency: 0.2,
+//                                     octaveCount: 6,
+//                                     persistence: 0.5,
+//                                     lacunarity: 2.0,
+//                                     seed: Int32(50))
 //
 
 //        let source = GKRidgedNoiseSource(frequency: 1.0,
@@ -128,9 +131,11 @@ class GameScene: SKScene {
 
         
         // Land water noise
-        let noise = GKNoise(source,
-                            gradientColors: [0: .white, 1: .black])
-        noise.remapValues(toTerracesWithPeaks: [-1, 0.0, 1.0], terracesInverted: false)
+//        let noise = GKNoise(source,
+//                            gradientColors: [0: .white, 1: .black])
+//        noise.remapValues(toTerracesWithPeaks: [-1, 0.0, 1.0], terracesInverted: false)
+        
+        let noise = GKNoise(source)
 //        noise.invert()
 
 //        noise.move(by: vector_double3(0, 0, 0))
@@ -139,10 +144,10 @@ class GameScene: SKScene {
         print("size \(map.size)")
         print("origin \(map.origin)")
         
-        let size = vector_double2(128, 128)
-        let sampleCount = vector_int2(Int32(Int(size.x * 4)), Int32(size.y * 4))
+        let size = vector_double2(1.0, 1.0)
+        let sampleCount = vector_int2(Int32(Int(128)), Int32(128))
         var origin = SIMD2<Double>(0, 0)
-        let spriteSize = CGSize(width: 100, height: 100)
+        let spriteSize = CGSize(width: 200, height: 200)
         
         let customMap = GKNoiseMap(noise,
                                    size: size,
@@ -181,7 +186,7 @@ class GameScene: SKScene {
         sprite2.drawBorder(color: .blue, width: 1.0)
         sprite2.position = CGPoint(x: Face.xPositive.x, y: 0)
         
-        addChild(sprite2)
+//        addChild(sprite2)
 
 
         // MOVE BY NOT MOVE TO DUMBASS
@@ -199,7 +204,7 @@ class GameScene: SKScene {
         let sprite3 = SKSpriteNode(texture: texture3, color: .white, size: spriteSize)
         sprite3.drawBorder(color: .red, width: 1.0)
         sprite3.position = CGPoint(x: Face.zNegative.x, y: 0)
-        addChild(sprite3)
+//        addChild(sprite3)
 
 
 
@@ -220,7 +225,7 @@ class GameScene: SKScene {
         sprite4.drawBorder(color: .yellow, width: 1.0)
 //        sprite4.position = CGPoint(x: Face.zNegative.x + 100, y: 0)
         sprite4.position = CGPoint(x: Face.xNegtive.x, y: 0)
-        addChild(sprite4)
+//        addChild(sprite4)
 
         
         
@@ -234,14 +239,14 @@ class GameScene: SKScene {
 
 
         let texture5 = SKTexture(noiseMap: customMap5)
-        try! UIImage(cgImage: texture3.cgImage())
+        try! UIImage(cgImage: texture5.cgImage())
             .pngData()!
             .write(to: url(for: "+y"))
         
         let sprite5 = SKSpriteNode(texture: texture5, color: .white, size: spriteSize)
         sprite5.drawBorder(color: .systemPink, width: 1.0)
         sprite5.position = CGPoint(x: Face.yPositive.x, y: Face.yPositive.y)
-        addChild(sprite5)
+//        addChild(sprite5)
         
         
         
@@ -254,13 +259,13 @@ class GameScene: SKScene {
 
 
         let texture6 = SKTexture(noiseMap: customMap6)
-        try! UIImage(cgImage: texture3.cgImage())
+        try! UIImage(cgImage: texture6.cgImage())
             .pngData()!
             .write(to: url(for: "-y"))
         let sprite6 = SKSpriteNode(texture: texture6, color: .white, size: spriteSize)
         sprite6.drawBorder(color: .purple, width: 1.0)
         sprite6.position = CGPoint(x: Face.yNegative.x, y: Face.yNegative.y)
-        addChild(sprite6)
+//        addChild(sprite6)
     }
     
     func printValues(with map: GKNoiseMap, name: String) {
