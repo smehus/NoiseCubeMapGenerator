@@ -53,7 +53,7 @@ class GameScene: SKScene {
             child.removeFromParent()
         }
         
-        print(url)
+        print(playgroundSharedDataDirectory)
         
         
         let fakeSource = GKPerlinNoiseSource()
@@ -67,8 +67,8 @@ class GameScene: SKScene {
         // Do we want spawn enemies using noise?
         
         let source = GKPerlinNoiseSource()
-        source.persistence = 0.7
-        source.frequency = 0.2
+        source.persistence = 0.6
+        source.frequency = 0.08
         
 //        let source = GKBillowNoiseSource(frequency: 2.0,
 //                                         octaveCount: 6,
@@ -87,9 +87,9 @@ class GameScene: SKScene {
 //                                     seed: Int32(50))
 //
 
-//        let source = GKRidgedNoiseSource(frequency: 1.0,
-//                                         octaveCount: 10,
-//                                         lacunarity: 1.0,
+//        let source = GKRidgedNoiseSource(frequency: 0.2,
+//                                         octaveCount: 5,
+//                                         lacunarity: 0.8,
 //                                         seed: Int32(50))
 //
 //        let source = GKRidgedNoiseSource(frequency: 0.5,
@@ -147,7 +147,7 @@ class GameScene: SKScene {
         print("origin \(map.origin)")
         
         let size = vector_double2(128, 128)
-        let sampleCount = vector_int2(Int32(Int(256)), Int32(256))
+        let sampleCount = vector_int2(Int32(Int(512)), Int32(512))
         var origin = SIMD2<Double>(0, 0)
         let spriteSize = CGSize(width: Face.width, height: Face.width)
         
