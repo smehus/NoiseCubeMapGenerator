@@ -69,7 +69,7 @@ class GameScene: SKScene {
         let source = GKPerlinNoiseSource()
         source.persistence = 0.6
         source.frequency = 0.08
-        
+        source.octaveCount = 10
 //        let source = GKBillowNoiseSource(frequency: 2.0,
 //                                         octaveCount: 6,
 //                                         persistence: 0.5,
@@ -138,10 +138,12 @@ class GameScene: SKScene {
 //        noise.remapValues(toTerracesWithPeaks: [-1, 0.0, 1.0], terracesInverted: false)
         
         let noise = GKNoise(source)
-//        noise.invert()
+//        noise.remapValues(toTerracesWithPeaks: [-1, 0.0, 0.5], terracesInverted: false)
+        noise.invert()
 
 //        noise.move(by: vector_double3(0, 0, 0))
         let map = GKNoiseMap(noise)
+        
         print("sample count \(map.sampleCount)")
         print("size \(map.size)")
         print("origin \(map.origin)")
