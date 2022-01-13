@@ -13,28 +13,29 @@ enum Face {
     case zPositive
     case zNegative
     
+    static var width: CGFloat = 200
     
     var x: CGFloat {
         switch self {
         case .zPositive:
-            return 100
-        case .zNegative:
-            return 300
-        case .xNegtive:
             return 0
+        case .zNegative:
+            return Face.width * 2
+        case .xNegtive:
+            return -Face.width
         case .xPositive:
-            return 200
+            return Face.width
         case .yPositive, .yNegative:
-            return 100
+            return 0
         }
     }
     
     var y: CGFloat {
         switch self {
         case .yPositive:
-            return 100
+            return Face.width
         case .yNegative:
-            return -100
+            return -Face.width
         default:
             return 0
         }
@@ -67,6 +68,7 @@ class GameScene: SKScene {
         
         let source = GKPerlinNoiseSource()
         source.persistence = 0.7
+        source.frequency = 0.2
         
 //        let source = GKBillowNoiseSource(frequency: 2.0,
 //                                         octaveCount: 6,
@@ -144,10 +146,10 @@ class GameScene: SKScene {
         print("size \(map.size)")
         print("origin \(map.origin)")
         
-        let size = vector_double2(1.0, 1.0)
-        let sampleCount = vector_int2(Int32(Int(128)), Int32(128))
+        let size = vector_double2(128, 128)
+        let sampleCount = vector_int2(Int32(Int(256)), Int32(256))
         var origin = SIMD2<Double>(0, 0)
-        let spriteSize = CGSize(width: 200, height: 200)
+        let spriteSize = CGSize(width: Face.width, height: Face.width)
         
         let customMap = GKNoiseMap(noise,
                                    size: size,
@@ -186,7 +188,7 @@ class GameScene: SKScene {
         sprite2.drawBorder(color: .blue, width: 1.0)
         sprite2.position = CGPoint(x: Face.xPositive.x, y: 0)
         
-//        addChild(sprite2)
+        addChild(sprite2)
 
 
         // MOVE BY NOT MOVE TO DUMBASS
@@ -204,7 +206,7 @@ class GameScene: SKScene {
         let sprite3 = SKSpriteNode(texture: texture3, color: .white, size: spriteSize)
         sprite3.drawBorder(color: .red, width: 1.0)
         sprite3.position = CGPoint(x: Face.zNegative.x, y: 0)
-//        addChild(sprite3)
+        addChild(sprite3)
 
 
 
@@ -225,7 +227,7 @@ class GameScene: SKScene {
         sprite4.drawBorder(color: .yellow, width: 1.0)
 //        sprite4.position = CGPoint(x: Face.zNegative.x + 100, y: 0)
         sprite4.position = CGPoint(x: Face.xNegtive.x, y: 0)
-//        addChild(sprite4)
+        addChild(sprite4)
 
         
         
@@ -246,7 +248,7 @@ class GameScene: SKScene {
         let sprite5 = SKSpriteNode(texture: texture5, color: .white, size: spriteSize)
         sprite5.drawBorder(color: .systemPink, width: 1.0)
         sprite5.position = CGPoint(x: Face.yPositive.x, y: Face.yPositive.y)
-//        addChild(sprite5)
+        addChild(sprite5)
         
         
         
@@ -265,7 +267,7 @@ class GameScene: SKScene {
         let sprite6 = SKSpriteNode(texture: texture6, color: .white, size: spriteSize)
         sprite6.drawBorder(color: .purple, width: 1.0)
         sprite6.position = CGPoint(x: Face.yNegative.x, y: Face.yNegative.y)
-//        addChild(sprite6)
+        addChild(sprite6)
     }
     
     func printValues(with map: GKNoiseMap, name: String) {
