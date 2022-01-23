@@ -45,7 +45,7 @@ enum Face {
 
 class GameScene: SKScene {
     func url(for id: String) -> URL {
-        return playgroundSharedDataDirectory.appendingPathComponent("world_map_\(id).png")
+        return playgroundSharedDataDirectory.appendingPathComponent("star_sky_\(id).png")
     }
     
     override func didMove(to view: SKView) {
@@ -66,14 +66,23 @@ class GameScene: SKScene {
         
         // Do we want spawn enemies using noise?
         
-        let source = GKPerlinNoiseSource()
-        source.persistence = 0.6
-        source.frequency = 0.08
-        source.octaveCount = 10
-//        let source = GKBillowNoiseSource(frequency: 2.0,
-//                                         octaveCount: 6,
-//                                         persistence: 0.5,
+//        let source = GKPerlinNoiseSource(frequency: 0.8,
+//                                         octaveCount: 1,
+//                                         persistence: 0.9,
 //                                         lacunarity: 0.2,
+//                                         seed: Int32(2))
+        
+
+        
+//        let source = GKPerlinNoiseSource()
+//        source.persistence = 0.9
+//        source.frequency = 0.3
+//        source.octaveCount = 3
+//        source.lacunarity = 0.2
+//        let source = GKBillowNoiseSource(frequency: 6.0,
+//                                         octaveCount: 6,
+//                                         persistence: 0.7,
+//                                         lacunarity: 0.05,
 //                                         seed: Int32(2))
         
         ///
@@ -87,15 +96,8 @@ class GameScene: SKScene {
 //                                     seed: Int32(50))
 //
 
-//        let source = GKRidgedNoiseSource(frequency: 0.2,
-//                                         octaveCount: 5,
-//                                         lacunarity: 0.8,
-//                                         seed: Int32(50))
-//
-//        let source = GKRidgedNoiseSource(frequency: 0.5,
-//                                         octaveCount: 10,
-//                                         lacunarity: 2.0,
-//                                         seed: Int32(50))
+        let source = GKRidgedNoiseSource()
+        source.frequency = 0.08
         
 //        let source = GKBillowNoiseSource(frequency: 6.0,
 //                                         octaveCount: 6,
@@ -123,10 +125,13 @@ class GameScene: SKScene {
 //        This property determines the number of octaves of the noise function that the noise source combines to produce noise. A smaller number results in smoother, simpler output; larger numbers result in rougher, more complex output.
         
         
+        // As expected - like dried mud or something
 //        let source = GKVoronoiNoiseSource()
+//        source.isDistanceEnabled = false
+//        source.frequency = 0.08
+//        source.displacement = 1.0
+        
 //        let source = GKSpheresNoiseSource()
-//        let source = GKCoherentNoiseSource()
-//        let source = GKCylindersNoiseSource()
         
 //        let noise = GKNoise(source,
 //                            gradientColors: [0.8: .blue, 1: .red])
@@ -137,9 +142,12 @@ class GameScene: SKScene {
 //                            gradientColors: [0: .white, 1: .black])
 //        noise.remapValues(toTerracesWithPeaks: [-1, 0.0, 1.0], terracesInverted: false)
         
+//        let star = UIColor(red: 107.0 / 255.0, green: 73.0 / 255.0, blue: 132.0 / 255.0, alpha: 1.0)
+//        let noise = GKNoise(source, gradientColors: [0: .white, 1: .black])
         let noise = GKNoise(source)
+//        noise.remapValues(toTerracesWithPeaks: [-1, 0.0, 1.0], terracesInverted: false)
 //        noise.remapValues(toTerracesWithPeaks: [-1, 0.0, 0.5], terracesInverted: false)
-        noise.invert()
+//        noise.invert()
 
 //        noise.move(by: vector_double3(0, 0, 0))
         let map = GKNoiseMap(noise)
